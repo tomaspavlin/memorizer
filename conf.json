@@ -1,0 +1,10 @@
+{
+	"debuglevel": "debug",
+    "jmeno": "tomas",
+    "server": {
+        "host": "",
+        "port": 8000,
+        "pass": "abc",
+        "output": "data/new"
+    }
+}
