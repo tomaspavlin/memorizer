@@ -48,6 +48,10 @@ def transferFile(filepath, destdir):
 	logging.debug("File " + filepath + " transfered to " + destdir)
 
 def getnum(data,key):
+	'''
+	if key is valid key of int in data, returns it, otherwise returns 0
+	'''
+
 	if key in data and str(data[key]).isdigit():
 		return int(data[key])
 	else:
@@ -79,3 +83,16 @@ def initLogging():
 	# set it
 	logging.basicConfig(level=level,
 		format='%(asctime)s %(name)s %(levelname)s %(message)s')
+
+def getPairsFromFile(file):
+    ret = []
+    f = open(file,'r')
+
+    for l in list(f):
+        l = l.strip()
+        arr = l.split("=")
+        if(len(arr) == 2):
+            ret.append({'first': arr[0].strip(), 'second': arr[1].strip()})
+        
+    f.close()
+    return ret

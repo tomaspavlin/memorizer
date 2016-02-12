@@ -1,0 +1,41 @@
+{
+  "name": "Memorizer extension",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Add words into memorizer easily",
+  "homepage_url": "http://ironbrain.net",
+  "icons": {
+    "16": "icons/brain16.png",
+    "48": "icons/brain48.png",
+    "128": "icons/brain128.png",
+    "256": "icons/brain128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "src/background.js"
+    ]
+  },
+  "permissions": [
+    "activeTab",
+    "webRequest",
+    "webRequestBlocking",
+    "cookies",
+    "https://*/*",
+    "http://*/*",
+    "http://91.146.121.51/other/ext"
+  ],
+  "web_accessible_resources": ["icons/*"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_scripts": [
+    {
+      "matches":[
+        "http://www.slovnik.cz/*",
+        "http://slovnik.cz/*"
+      ],
+      "js":["js/jquery.js", "src/slovnik.js"],
+      "css":["css/main.css"],
+      "all_frames": true
+    }
+  ]
+}

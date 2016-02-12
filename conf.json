@@ -6,5 +6,20 @@
         "port": 8000,
         "pass": "abc",
         "output": "data/new"
+    },
+    "uploader": {
+    	"accesstoken": "dht5BnsKrRfgrcTCN9hZuauYEfyfyyJTc3vTNvsY",
+    	"input": "data/to_upload"
+    },
+    "scheduler": {
+    	"files":{
+    		"new": "data/new",
+    		"upload": "data/to_upload",
+    		"data": "data/scheduler_data",
+    		"time": "data/time"
+    	},
+    	"min_count": 2,
+    	"max_count": 20,
+    	"max_delay": 32
     }
 }

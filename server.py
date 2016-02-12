@@ -1,13 +1,14 @@
 #!/usr/bin/python
+"""
+This program is http server that can be used for saving text into text file 
+"""
 
 import utils
 import logging
 import time
 import os
-from ctl import ctl
 import BaseHTTPServer
 from urlparse import urlparse, parse_qs
-
 
 
 utils.initLogging()
