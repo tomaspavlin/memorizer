@@ -9,6 +9,7 @@ import time
 import datetime
 import sys
 import random
+import codecs
 
 
 utils.initLogging()
@@ -97,7 +98,20 @@ def save_data_for_upload(data):
     f = open(file_upload,"w")
 
     for d in data:
-        f.write("{0}={1}\n".format(d['first'],d['second']))
+        #d['first'] = d['first'].encode("utf-8")
+        #d['second'] = d['second'].encode("utf-8")
+        #print d['first']
+        #print d['second']
+        #print type(d['first'])
+        #print type(d['second'])
+        str = "{0:s} = {1:s}\n".format(
+            d['first'],
+            d['second']
+        )
+        
+        #str_u = str.decode("utf8")
+
+        f.write(str)
 
     f.close()
 
@@ -124,8 +138,14 @@ def postpone_data(data):
     return ret
 
 def save_data(data):
-    f = open(file_data,"w")
     str = utils.stringifyJSON(data)
+    
+    #print str
+    #print type(str)
+
+    #str_u = str.decode("utf8")
+
+    f = open(file_data,"w")
     f.write(str)
     f.close()
 
@@ -142,6 +162,7 @@ stats = {}
 data = utils.getJSONData(file_data)
 data_new = get_new_data()
 data += data_new
+
 
 logging.debug("Found %i new items" % len(data_new))
 conf['all'] = len(data)

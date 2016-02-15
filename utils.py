@@ -4,9 +4,18 @@ import ConfigParser
 import logging
 import json
 import os
+import sys
+
+# changes default encoding from ascii. Required for json and files ios
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 def stringifyJSON(data):
-	return json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
+	ret = json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
+	#if type(ret) is unicode:
+	#	ret = ret.encode("utf8")
+	
+	return ret
 
 
 def getJSONData(filepath):

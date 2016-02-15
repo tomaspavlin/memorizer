@@ -1,0 +1,24 @@
+# Insallation
+Run http server
+
+```python
+./server.py
+```
+
+Plan scheduler and uploader to run every day
+
+```sh
+crontab -e
+(...)
+```
+
+Install *chrome extension*
+
+# How to use
+## Chrome extension
+This extension will **inject** it's icons into *slovnik.cz*. If you click these icons, the word pair will be added into your wordlist.
+
+You can click the extension **icon in the top of the chrome** and you well be able to add your own pair into wordlist.
+
+It is good idea to **configure search engines** in chrome for fast searching in slovnik.cz.
+

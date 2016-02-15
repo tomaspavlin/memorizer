@@ -1,56 +1,4 @@
 
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-
-function getButton(en,cs){
-	function addPair(en,cs){
-		var str = en + "=" + cs;
-
-		var a = encodeURIComponent(str);
-
-		var url = "http://127.0.0.1:8000/add?text="+a+"&pass=abc";
-
-		$.ajax({
-			url: url,
-			  cache: false
-		}).done(function( html ) {
-		    //$( "#results" ).append( html );
-		    console.log("Uploaded with message: " + html);
-
-		    if(html == "succ")
-		    	alert("Successfully added into wordlist!\n\nEnglish: "+en+"\nCzech: "+cs);
-		    else
-		    	alert("Error occured ("+html+").");
-		  });
-
-	}
-
-	var elem = $('<button/>',
-    {
-        text: '',
-        class: 'brain-btn',
-        click: function () { addPair($(this).attr('en'), $(this).attr('cs')); }
-    });
-
-	$(elem).attr('en',en);
-	$(elem).attr('cs',cs);
-
-	$(elem).css('background-image','url('+chrome.extension.getURL('icons/brain16.png')+')')
-	return elem;
-
-}
 
 
 
@@ -91,10 +39,8 @@ $( document ).ready(function() {
 
 		p.append(elem);
 
-
 	};
 
-	
 });
 
 
