@@ -1,70 +1,74 @@
 #!/usr/bin/python
-# SUMAMRY: Uploads pairs separated with = saved in configured file to Quizlet 
-# RETURN CODE: 0 if upload succesful, 1 if nonsuccesful
+"""
+Program for manipulating between local wordlists in files and Quizlet sets
+
+Reads tasks in config file and processes them. There are these types of tasks:
+- remove
+- create
+- remove_create
+
+For more usage info read either config file or this file.
+"""
 
 import utils
 import logging
 from time import gmtime, strftime
-import os
-import httplib
-import urllib
-
+import quizlet
 
 utils.initLogging()
 conf = utils.getConf()
 
-def get_pairs():
-    file = conf['uploader']['input']
-    return utils.getPairsFromFile(file)
+def transoform_setname(setname):
+    return strftime(setname, gmtime())
 
-def create_set(name, pairs):
-    if(len(pairs) < 2):
-        logging.error("Min 2 pairs must be uploaded on quizlet. Number of pairs is %i." % len(pairs))
-        return False
+def do_task_remove_create(setname, pairfile):
+    do_task_remove(setname)
+    return do_task_create(setname, pairfile)
 
-    path = "/2.0/sets"
-    headers = {
-        "Authorization": "Bearer %s" % conf['uploader']['accesstoken'],
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
+def do_task_remove(setname):
+    c = quizlet.remove_sets_by_title(setname)
+    logging.debug("Removed {0} sets with name '{1}'".format(c, setname))
 
-    terms = map(lambda p: p['first'], pairs)
-    definitions = map(lambda p: p['second'], pairs)
+def do_task_create(setname, pairfile):
+    pairs = utils.getPairsFromFile(pairfile)
+    
+    suc = quizlet.create_set(setname,pairs)
 
-    params = urllib.urlencode({
-        "whitespace": "true",
-        "title": name,
-        "terms[]": terms,
-        "definitions[]": definitions,
-        "lang_terms": "en",
-        "lang_definitions": "cs"
-    }, True)
-
-    conn = httplib.HTTPSConnection("api.quizlet.com")
-    conn.request("POST", path, params, headers)
-
-    resp = conn.getresponse()
-    data = resp.read()
-
-    # if succesful
-    if resp.status >= 200 and resp.status < 300:
-        return True
-    # unsuccesful
+    if suc:
+        logging.debug("Set '{0}'' created on Quizlet with pairfile '{1}'' with {2} pairs".format(setname, pairfile, len(pairs)))
     else:
-        logging.debug("Quizlet returned: " + data)
-        return False
+        logging.error("Unsuccessful creating of Quizlet set '{0}' with pairfile '{1}'".format(setname, pairfile))
 
-def get_set_name():
-    return strftime("Wordlist for %d %b %Y, %a", gmtime())
+    return suc
 
+tasks = conf['uploader']['tasks']
 
+errc = 0
+succ = 0
 
-pairs = get_pairs()
-setname = get_set_name()
+# process all tasks
+for task in tasks:
+    # get task params
+    type = task['type']
+    setname = task['setname'] if 'setname' in task else ""
+    pairfile = task['pairfile'] if 'pairfile' in task else ""
+    setname = transoform_setname(setname)
 
-if create_set(setname, pairs):
-    logging.info("{0} pairs uploaded successfully on Quizlet with set name '{1}'".format(len(pairs),setname))
-    exit(0)
-else:
-    logging.error("Uploading on Quizlet unsuccessful")
-    exit(1)
+    logging.debug("Processing task '{0}' with args '{1}', '{2}'".format(type, setname, pairfile))
+    # process task
+    if type == "remove":
+        do_task_remove(setname)
+        succ += 1
+    elif type == "create":
+        if do_task_create(setname, pairfile):
+            succ += 1
+        else: errc += 1
+    elif type == "remove_create":
+        if do_task_remove_create(setname, pairfile):
+            succ += 1
+        else: errc += 1
+    else:
+        logging.error("Invalid taks type '{0}'".format(type))
+        errc += 1
+
+logging.info("{0} uploader tasks succesful, {1} unsuccesful".format(succ, errc))

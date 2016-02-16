@@ -1,0 +1,34 @@
+<h1 id="installation">Installation</h1>
+<ol style="list-style-type: decimal">
+<li><p>Run http server</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">.<span class="op">/</span>server.py</code></pre></div></li>
+<li><p>Plan scheduler and uploader to run every day. For example add this line into crontab:</p>
+<pre><code>0   4   *   *   *   &lt;path_to_this_dir&gt;/day_routine.sh &gt;&gt; &lt;path_to_this_dir&gt;/day_routine.log 2&gt;&amp;1</code></pre></li>
+<li><p>Install <em>chrome extension</em></p></li>
+</ol>
+<h1 id="architecture-overview">Architecture overview</h1>
+<pre><code>utils.py - some handy functions
+conf.json - configuration of py files
+
+
+chrome-extension    -&gt;  server.py   -&gt;  data/new - add new keyword here
+                                    -&gt;  quizlet.py  -&gt;  recreate new set
+
+cron    -&gt;  day_routine.sh
+                |
+                |
+                |       /data/new
+                |           |
+                |           |
+                |---&gt;   scheduler.py    &lt;-&gt; data/scheduler_data
+                |                       --&gt; data/to_upload
+                |
+                |---&gt;   uploader.py     &lt;-- data/to_upload
+                                        --&gt; quizlet.py  --&gt; create daily set
+                                                        --&gt; remove new set 
+</code></pre>
+<h1 id="usage">Usage</h1>
+<h2 id="chrome-extension">Chrome extension</h2>
+<p>This extension will <strong>inject</strong> it's icons into <em>slovnik.cz</em>. If you click these icons, the word pair will be added into your wordlist.</p>
+<p>You can click the extension <strong>icon in the top of the chrome</strong> and you well be able to add your own pair into wordlist.</p>
+<p>It is good idea to <strong>configure search engines</strong> in chrome for fast searching in slovnik.cz.</p>

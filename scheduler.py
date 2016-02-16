@@ -22,7 +22,6 @@ file_upload = conf["scheduler"]['files']['upload']
 min_count = int(conf["scheduler"]['min_count'])
 max_count = int(conf["scheduler"]['max_count'])
 max_delay = int(conf["scheduler"]['max_delay'])
-file_time = conf["scheduler"]['files']['time']
 
 
 def is_sooner_than(t1,t2):

@@ -1,22 +1,35 @@
 {
-	"debuglevel": "debug",
+	"debuglevel": "info",
     "jmeno": "tomas",
     "server": {
         "host": "",
         "port": 8000,
         "pass": "abc",
-        "output": "data/new"
+        "output": "data/new",
+        "setname": "Just added wordlist"
     },
     "uploader": {
-    	"accesstoken": "dht5BnsKrRfgrcTCN9hZuauYEfyfyyJTc3vTNvsY",
-    	"input": "data/to_upload"
+        "tasks": [
+            {
+                "type": "remove",
+                "setname": "Just added wordlist"
+            },
+            {
+                "type": "remove_create",
+                "setname": "Wordlist for %d %b %Y, %a",
+                "pairfile": "data/to_upload"
+            }
+        ]
+    },
+    "quizlet": {
+        "accesstoken": "dht5BnsKrRfgrcTCN9hZuauYEfyfyyJTc3vTNvsY",
+        "uid": "quizlette448275"
     },
     "scheduler": {
     	"files":{
     		"new": "data/new",
     		"upload": "data/to_upload",
-    		"data": "data/scheduler_data",
-    		"time": "data/time"
+    		"data": "data/scheduler_data"
     	},
     	"min_count": 2,
     	"max_count": 20,

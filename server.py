@@ -1,6 +1,8 @@
 #!/usr/bin/python
 """
-This program is http server that can be used for saving text into text file 
+This program is http server that can be used for saving text into text file
+
+(...)
 """
 
 import utils
@@ -9,6 +11,7 @@ import time
 import os
 import BaseHTTPServer
 from urlparse import urlparse, parse_qs
+import quizlet
 
 
 utils.initLogging()
@@ -28,16 +31,27 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         params = parse_qs(urlparse(s.path).query)
 
         if('text' in params and
-        	len(params['text']) == 1 and
-        	write_line(params['text'][0]) and
+            len(params['text']) == 1 and
         	'pass' in params and
         	len(params['pass']) == 1 and
-        	params['pass'][0] == conf['server']['pass']
+        	params['pass'][0] == conf['server']['pass'] and
+            write_line(params['text'][0])
         	):
-        	
-    		s.wfile.write("succ")
+        	   s._on_succ_write()
+    		
     	else:
     		s.wfile.write("err")
+    def _on_succ_write(s):
+        s.wfile.write("succ")
+
+        fname = conf['server']['output']
+        setname = conf['server']['setname']
+
+        pairs = utils.getPairsFromFile(fname)
+
+        quizlet.remove_sets_by_title(setname)
+        quizlet.create_set(setname, pairs)
+
 
 def start_server(host_name, port_number):
     server_class = BaseHTTPServer.HTTPServer
