@@ -27,7 +27,7 @@ chrome-extension	->	server.py 	->	data/new - add new keyword here
 cron	->	day_routine.sh
 				|
 				|
-				|		/data/new
+				|		data/new
 				|			|
 				|			|
 				|--->	scheduler.py	<->	data/scheduler_data

@@ -1,3 +1,5 @@
+var memorizerServer = "http://192.168.1.14:8000";
+
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
@@ -26,7 +28,7 @@ var addItem = function (str = ""){
 
 	var a = encodeURIComponent(str);
 
-	var url = "http://127.0.0.1:8000/add?text="+a+"&pass=abc";
+	var url = memorizerServer + "/add?text="+a+"&pass=abc";
 
 	$.ajax({
 		url: url,
