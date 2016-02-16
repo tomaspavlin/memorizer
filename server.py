@@ -41,6 +41,8 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     		
     	else:
     		s.wfile.write("err")
+            logging.error("Error occured in http request.")
+
     def _on_succ_write(s):
         s.wfile.write("succ")
 
@@ -50,7 +52,10 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         pairs = utils.getPairsFromFile(fname)
 
         quizlet.remove_sets_by_title(setname)
-        quizlet.create_set(setname, pairs)
+        if quizlet.create_set(setname, pairs):
+            logging.info("Quizlet set '{0}' updated. There are {1} items in that set now.".format(setname,len(pairs)))
+        else:
+            logging.error("Updating {1} items in Quizlet set '{0}' unsuccesful.".format(setname,len(pairs)))
 
 
 def start_server(host_name, port_number):

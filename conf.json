@@ -1,5 +1,5 @@
 {
-	"debuglevel": "info",
+	"debuglevel": "debug",
     "jmeno": "tomas",
     "server": {
         "host": "",
