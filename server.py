@@ -2,7 +2,8 @@
 """
 This program is http server that can be used for saving text into text file
 
-(...)
+Example of accessing the server:
+localhost:8000/add?text=a%3Dahoj&pass=abc
 """
 
 import utils
@@ -12,6 +13,7 @@ import os
 import BaseHTTPServer
 from urlparse import urlparse, parse_qs
 import quizlet
+import threading
 
 
 utils.initLogging()
@@ -37,7 +39,7 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         	params['pass'][0] == conf['server']['pass'] and
             write_line(params['text'][0])
         	):
-        	   s._on_succ_write()
+                s._on_succ_write()
     		
     	else:
             s.wfile.write("err")
@@ -45,6 +47,12 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
     def _on_succ_write(s):
         s.wfile.write("succ")
+        t = threading.Thread(target = MyHandler._synchronize_with_quizlet)
+        t.start()
+        
+    @staticmethod
+    def _synchronize_with_quizlet():
+        logging.debug("Synchronizing with Quizlet")
 
         fname = conf['server']['output']
         setname = conf['server']['setname']
@@ -56,6 +64,7 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             logging.info("Quizlet set '{0}' updated. There are {1} items in that set now.".format(setname,len(pairs)))
         else:
             logging.error("Updating {1} items in Quizlet set '{0}' unsuccesful.".format(setname,len(pairs)))
+
 
 
 def start_server(host_name, port_number):
