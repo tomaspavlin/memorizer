@@ -40,7 +40,7 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         	   s._on_succ_write()
     		
     	else:
-    		s.wfile.write("err")
+            s.wfile.write("err")
             logging.error("Error occured in http request.")
 
     def _on_succ_write(s):
