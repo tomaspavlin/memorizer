@@ -17,9 +17,9 @@
 
 # Architecture overview
 ```
-utils.py - some handy functions
-conf.json - configuration of py files
-
+utils.py	- some handy functions
+conf.json	- configuration of py files
+get_quizlet_access_token.php	- script for obtaining access token thats written in config file
 
 chrome-extension	->	server.py 	->	data/new - add new keyword here
 									->	quizlet.py	->	recreate new set
