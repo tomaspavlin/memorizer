@@ -15,9 +15,13 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-var addItem = function (str = ""){
+var addItem = function (str){
 	//var str = en + "=" + cs;
-	var showErr = function(msg = ""){
+	if(str === undefined) str = "";
+
+	var showErr = function(msg){
+		if(msg === undefined) msg = "";
+
 		if(msg != "")
 			alert("Error occured: " + msg);
 		else alert("Error occured.");
