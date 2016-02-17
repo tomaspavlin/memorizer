@@ -2,14 +2,21 @@
 <ol style="list-style-type: decimal">
 <li><p>Run http server</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">.<span class="op">/</span>server.py</code></pre></div></li>
+<li><p>Make sure there are 3 files named <em>to_upload</em>, <em>scheduler_data</em> and <em>new</em> in <em>data</em> directory.</p>
+<pre><code>data/
+    |-- to_upload
+    |-- scheduler_data
+    |-- new</code></pre>
+<p>Make sure that the <em>data/scheduler_data</em> file contains at least following line.</p>
+<pre><code>[]</code></pre></li>
 <li><p>Plan scheduler and uploader to run every day. For example add this line into crontab:</p>
 <pre><code>0   4   *   *   *   &lt;path_to_this_dir&gt;/day_routine.sh &gt;&gt; &lt;path_to_this_dir&gt;/day_routine.log 2&gt;&amp;1</code></pre></li>
 <li><p>Install <em>chrome extension</em></p></li>
 </ol>
 <h1 id="architecture-overview">Architecture overview</h1>
-<pre><code>utils.py - some handy functions
-conf.json - configuration of py files
-
+<pre><code>utils.py    - some handy functions
+conf.json   - configuration of py files
+get_quizlet_access_token.php    - script for obtaining access token thats written in config file
 
 chrome-extension    -&gt;  server.py   -&gt;  data/new - add new keyword here
                                     -&gt;  quizlet.py  -&gt;  recreate new set
@@ -17,7 +24,7 @@ chrome-extension    -&gt;  server.py   -&gt;  data/new - add new keyword here
 cron    -&gt;  day_routine.sh
                 |
                 |
-                |       /data/new
+                |       data/new
                 |           |
                 |           |
                 |---&gt;   scheduler.py    &lt;-&gt; data/scheduler_data

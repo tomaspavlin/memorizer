@@ -4,14 +4,26 @@
 	```python
 	./server.py
 	```
+2. Make sure there are 3 files named *to_upload*, *scheduler_data* and *new* in *data* directory.
+	```
+	data/
+		|--	to_upload
+		|--	scheduler_data
+		|--	new
+	```
 
-2. Plan scheduler and uploader to run every day. For example add this line into crontab:
+	Make sure that the *data/scheduler_data* file contains at least following line.
+	```
+	[]
+	```
+
+3. Plan scheduler and uploader to run every day. For example add this line into crontab:
 
 	```
 	0	4	*	*	*	<path_to_this_dir>/day_routine.sh >> <path_to_this_dir>/day_routine.log 2>&1
 	```
 
-3. Install *chrome extension*
+4. Install *chrome extension*
 
 
 
