@@ -1,6 +1,5 @@
 {
 	"debuglevel": "debug",
-    "jmeno": "tomas",
     "server": {
         "host": "",
         "port": 8000,
@@ -10,10 +9,6 @@
     },
     "uploader": {
         "tasks": [
-            {
-                "type": "remove",
-                "setname": "Just added wordlist"
-            },
             {
                 "type": "remove_create",
                 "setname": "Wordlist for %d %b %Y, %a",
