@@ -1,4 +1,4 @@
-var memorizerServer = "http://192.168.1.14:8000";
+var memorizerServer = "http://192.168.1.7:8000";
 
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
