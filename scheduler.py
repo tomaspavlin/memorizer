@@ -54,6 +54,10 @@ def get_time_from_delay(delay):
 
     return ret
 
+def time_to_string(t):
+    s = time.localtime(t);
+    return time.strftime("%y_%m_%d", s);
+
 def get_new_data():
     pairs = utils.getPairsFromFile(file_new)
     ret = []
@@ -148,20 +152,42 @@ def save_data(data):
     f.write(str)
     f.close()
 
-# status
-if len(sys.argv) == 2 and sys.argv[1] == "status":
-    print "TODO"
 
-    exit(0)
 
 stats = {}
 
-# default
 # get data for processing
 data = utils.getJSONData(file_data)
+
+
+
+
+# status
+if len(sys.argv) == 2 and sys.argv[1] == "status":
+    out = [
+        [
+            time_to_string(i['time_added']),
+            time_to_string(i['time_plan']),
+            i['delay'],
+            i['state'],
+            i['first'],
+            i['second']
+        ] for i in data]
+
+
+
+    for i in out:
+        for ii in i:
+            sys.stdout.write(str(ii) + "\t");
+
+        print ""
+
+    exit(0)
+
+
+# get data for processing2
 data_new = get_new_data()
 data += data_new
-
 
 logging.debug("Found %i new items" % len(data_new))
 conf['all'] = len(data)

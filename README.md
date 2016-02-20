@@ -38,6 +38,9 @@ chrome-extension	->	server.py 	->	data/new - add new keyword here
 
 cron	->	day_routine.sh
 				|
+				|--->	saves output to day_routine.log
+				|--->	backup data using tar
+				|--->	scheduler.py status	- prints data in scheduler_data
 				|
 				|		data/new
 				|			|

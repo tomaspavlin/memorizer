@@ -10,7 +10,7 @@
     "uploader": {
         "tasks": [
             {
-                "type": "remove_create",
+                "type": "create",
                 "setname": "Wordlist for %d %b %Y, %a",
                 "pairfile": "data/to_upload"
             }
