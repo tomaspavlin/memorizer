@@ -27,7 +27,7 @@
     		"data": "data/scheduler_data"
     	},
     	"min_count": 2,
-    	"max_count": 40,
+    	"max_count": 60,
     	"max_delay": 32
     }
 }
