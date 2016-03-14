@@ -59,6 +59,6 @@ var uploadItem = function(str){
 	    else showErr(html);
 	    	
 	  }).error(function(e){
-	  	showErr("Is http server running?\n" + e);
+	  	showErr("Is http server running?");
 	  });
 };
