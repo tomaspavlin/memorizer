@@ -15,46 +15,34 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-var addItem = function (str){
-	//var str = en + "=" + cs;
+var showNotification = function(title, message){
+	chrome.extension.sendRequest({ f: "showNotification", args: [title, message]});
+};
+
+var uploadItem = function(str){
+	chrome.extension.sendRequest({ f: "uploadItem", args: [str]});
+};
+
+var showPromptAndUpload = function (str){
 	if(str === undefined) str = "";
 
-	var showErr = function(msg){
-		if(msg === undefined) msg = "";
-
-		if(msg != "")
-			alert("Error occured: " + msg);
-		else alert("Error occured.");
-	};
-
-	str = prompt("<english> = <czech>",str);
+	str = prompt("<english> = <definition>",str);
 	if(str == null) return;
 
-	var a = encodeURIComponent(str);
-
-	var url = memorizerServer + "/add?text="+a+"&pass=abc";
-
-	$.ajax({
-		url: url,
-		  cache: false
-	}).done(function( html ) {
-	    console.log("Uploaded with message: " + html);
-
-	    if(html == "succ")
-	    	alert("Successfully added into wordlist!");
-	    else showErr(html);
-	    	
-	  }).error(function(){
-	  	showErr("Is http server running?");
-	  });
+	uploadItem(str);
 };
 
 var getButton = function(en,cs){
+	en = en.trim();
+	cs = cs.trim();
+	en = en.replace("=","-");
+	cs = cs.replace("=","-");
+
 	var elem = $('<button/>',
     {
         text: '',
         class: 'brain-btn',
-        click: function () { addItem($(this).attr('en') + ' = ' + $(this).attr('cs')); }
+        click: function () { showPromptAndUpload($(this).attr('en') + ' = ' + $(this).attr('cs')); }
     });
 
 	$(elem).attr('en',en);

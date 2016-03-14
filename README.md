@@ -56,7 +56,7 @@ cron	->	day_routine.sh
 
 # Usage
 ## Chrome extension
-This extension will **inject** it's icons into *slovnik.cz*. If you click these icons, the word pair will be added into your wordlist.
+This extension will **inject** it's icons into *slovnik.cz* and *dictionary.com*. If you click these icons, the word pair will be added into your wordlist.
 
 You can click the extension **icon in the top of the chrome** and you well be able to add your own pair into wordlist.
 
