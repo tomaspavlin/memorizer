@@ -10,7 +10,7 @@ $( document ).ready(function() {
 	for (var i = 0; i < sections.length; i++) {
 		var s = $(sections[i]);
 
-		var title = s.find($(".head-entry"));
+		var title = s.find($(".head-entry")).first();
 
 		var term = title.text();
 		if(term == "") continue;
