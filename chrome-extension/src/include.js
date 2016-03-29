@@ -1,6 +1,18 @@
-var memorizerServer = "http://192.168.1.7:8000";
+var getDefaultOptions = function(){
+	var ret = {};
+	ret.memorizerServer = "http://192.168.1.7:8000";
+	return ret;
+};
 
-var getUrlParameter = function getUrlParameter(sParam) {
+var getOptions = function(){
+	var ret = getDefaultOptions();
+	if (localStorage['memorizerServer'] !== undefined)
+		ret.memorizerServer = localStorage['memorizerServer'];
+
+	return ret;
+};
+
+var getUrlParameter = function(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
         sParameterName,

@@ -43,10 +43,10 @@ var uploadItem = function(str){
 		return;
 	}
 
-	str = str.replace("\n","|");
+	str = str.replace(/\n/g,"|");
 
 	var a = encodeURIComponent(str);
-	var url = memorizerServer + "/add?text="+a+"&pass=abc";
+	var url = getOptions().memorizerServer + "/add?text="+a+"&pass=abc";
 
 	$.ajax({
 		url: url,

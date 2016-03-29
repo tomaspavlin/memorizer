@@ -1,5 +1,6 @@
 {
   "name": "Memorizer extension",
+  "options_page": "html/options.html",
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "Add words into memorizer easily",

@@ -23,9 +23,9 @@ def _get_quizlet_response(method, path, params):
     }
 
     conn = httplib.HTTPSConnection("api.quizlet.com")
+
     conn.request(method, path, params, headers)
     resp = conn.getresponse()
-
     return resp
 
 def create_set(title, pairs):
@@ -57,7 +57,12 @@ def create_set(title, pairs):
     }, True)
 
     # get data
-    resp = _get_quizlet_response(method, path, params)
+    try:
+        resp = _get_quizlet_response(method, path, params)
+    except:
+        logging.debug("Error occured while requesting Quizlet server.")
+        return False
+
     data = resp.read()
 
     # if succesful
@@ -80,11 +85,13 @@ def get_sets_by_title(title):
     params = ""
 
     # get data
-    resp = _get_quizlet_response(method, path, params)
-    data = json.loads(resp.read())
+    try:
+        resp = _get_quizlet_response(method, path, params)
+    except:
+        logging.debug("Error occured while requesting Quizlet server.")
+        return []
 
-    
-    #print ret
+    data = json.loads(resp.read())
 
 
     # if succesful
@@ -116,7 +123,12 @@ def add_terms_into_set_by_id(sid, pair):
     }, True)
 
     # get data
-    resp = _get_quizlet_response(method, path, params)
+    try:
+        resp = _get_quizlet_response(method, path, params)
+    except:
+        logging.debug("Error occured while requesting Quizlet server.")
+        return False
+
     data = resp.read()
 
     # if succesful
@@ -144,14 +156,18 @@ def remove_sets_by_title(title):
         params = ""
 
         # get data
-        resp = _get_quizlet_response(method, path, params)
-        data = resp.read()
+        try:
+            resp = _get_quizlet_response(method, path, params)
+            data = resp.read()
 
-        if resp.status >= 200 and resp.status < 300:
-            succ += 1
-        else:
-            logging.debug("Quizlet returned: " + data)
-            errc += 1
+            if resp.status >= 200 and resp.status < 300:
+                succ += 1
+            else:
+                logging.debug("Quizlet returned: " + data)
+                errc += 1
+        except:
+            logging.debug("Error occured while requesting Quizlet server.")
+            errc += 1        
 
     return succ
 
