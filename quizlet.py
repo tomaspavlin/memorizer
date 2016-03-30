@@ -76,7 +76,7 @@ def create_set(title, pairs):
 def get_sets_by_title(title):
     uid = conf['quizlet']['uid']
     """
-    Gets all data of sets which title equals to title
+    Gets all data of sets which title contains title
     """
 
     # set arguments
@@ -96,7 +96,7 @@ def get_sets_by_title(title):
 
     # if succesful
     if resp.status >= 200 and resp.status < 300:
-        ret = [s for s in data if (title == s['title'])]
+        ret = [s for s in data if (title in s['title'])]
         return ret
     # unsuccesful
     else:

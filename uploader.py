@@ -67,6 +67,8 @@ for task in tasks:
         if do_task_remove_create(setname, pairfile):
             succ += 1
         else: errc += 1
+    elif type == "none":
+        succ += 1
     else:
         logging.error("Invalid taks type '{0}'".format(type))
         errc += 1
