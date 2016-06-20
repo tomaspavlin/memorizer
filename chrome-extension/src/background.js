@@ -46,7 +46,8 @@ var uploadItem = function(str){
 	str = str.replace(/\n/g,"|");
 
 	var a = encodeURIComponent(str);
-	var url = getOptions().memorizerServer + "/add?text="+a+"&pass=abc";
+	var opt = getOptions()
+	var url = opt.memorizerServer + "/add?text="+a+"&pass="+opt.password;
 
 	$.ajax({
 		url: url,

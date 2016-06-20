@@ -25,7 +25,7 @@ max_delay = int(conf["scheduler"]['max_delay'])
 
 
 def is_sooner_than(t1,t2):
-    return t1 <= t2 + 3600
+    return t1 <= t2 + 3600 * 5
 
 def increase_time_file():
     return

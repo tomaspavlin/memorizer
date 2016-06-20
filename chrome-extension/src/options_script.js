@@ -1,15 +1,19 @@
 var save = function(){
-	localStorage['memorizerServer'] = $("#memorizerServer").val();
+	for (p in ['memorizerServer','password'])
+		localStorage[p] = $("#"+p).val();
+	
 	alert("Saved.");
 };
 
 var restore = function(){
 	var options = getOptions();
+	$("#password").val(options.password);
 	$("#memorizerServer").val(options.memorizerServer);
 };
 
 var defaults = function(){
 	var options = getDefaultOptions();
+	$("#password").val(options.password);
 	$("#memorizerServer").val(options.memorizerServer);
 };
 

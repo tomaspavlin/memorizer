@@ -1,14 +1,16 @@
 var getDefaultOptions = function(){
 	var ret = {};
-	ret.memorizerServer = "http://192.168.1.7:8000";
+	ret.memorizerServer = "http://ironbrain.net:8000";
+	ret.password = "kopretinka382"
 	return ret;
 };
 
 var getOptions = function(){
 	var ret = getDefaultOptions();
 	if (localStorage['memorizerServer'] !== undefined)
-		ret.memorizerServer = localStorage['memorizerServer'];
-
+		ret.memorizerServer = localStorage['memorizerServer']
+	if (localStorage['password'] !== undefined)
+		ret.password = localStorage['password']
 	return ret;
 };
 
