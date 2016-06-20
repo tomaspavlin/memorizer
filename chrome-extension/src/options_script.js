@@ -1,6 +1,6 @@
 var save = function(){
-	localStorage['memorizerServer'] = $("#memorizerServer".val();
-	localStorage['password'] = $("#password".val();
+	localStorage['memorizerServer'] = $("#memorizerServer").val();
+	localStorage['password'] = $("#password").val();
 	
 	alert("Saved.");
 };
