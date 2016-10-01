@@ -1,0 +1,34 @@
+<script src="../js/jquery.js"></script>
+<script src="../src/dic_script.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+
+<style>
+
+	#dictionary-iframe {
+		width: 750px;
+	}
+
+	#slovnik-iframe {
+		width: 350px;
+	}
+
+	iframe {
+		height: 90%;
+	}
+
+</style>
+
+
+
+<div>
+	<form class='form-group form-inline' id='form'>
+		<img src='../icons/brain48.png'>
+		<input id="text" placeholder='English word' class="form-control form-group">
+		<input type="submit" id="submit" class="btn btn-success btn form-group form-control form-group" value="Translate">
+	</form>
+
+	<iframe src="" id="slovnik-iframe"></iframe>
+	<iframe src="" id="dictionary-iframe"></iframe>
+</div>
