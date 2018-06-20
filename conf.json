@@ -3,7 +3,7 @@
     "server": {
         "host": "",
         "port": 8000,
-        "pass": "kopretinka382",
+        "pass": "SERVER PASSWORD USED BY CHROME EXTENSION",
         "output": "data/new",
         "setname": "Just added wordlist"
     },
@@ -21,8 +21,8 @@
         ]
     },
     "quizlet": {
-        "accesstoken": "dht5BnsKrRfgrcTCN9hZuauYEfyfyyJTc3vTNvsY",
-        "uid": "quizlette448275"
+        "accesstoken": "QUIZLET ACCESS TOKEN",
+        "uid": "QUIZLET USERNAME"
     },
     "scheduler": {
     	"files":{
